@@ -1,0 +1,14 @@
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\bin\Debug\netcoreapp2.2\scribeAPI.deps.json
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\bin\Debug\netcoreapp2.2\scribeAPI.runtimeconfig.json
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\bin\Debug\netcoreapp2.2\scribeAPI.runtimeconfig.dev.json
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\bin\Debug\netcoreapp2.2\scribeAPI.dll
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\bin\Debug\netcoreapp2.2\scribeAPI.pdb
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\obj\Debug\netcoreapp2.2\scribeAPI.csprojAssemblyReference.cache
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\obj\Debug\netcoreapp2.2\scribeAPI.csproj.CoreCompileInputs.cache
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\obj\Debug\netcoreapp2.2\scribeAPI.RazorAssemblyInfo.cache
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\obj\Debug\netcoreapp2.2\scribeAPI.RazorAssemblyInfo.cs
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\obj\Debug\netcoreapp2.2\scribeAPI.AssemblyInfoInputs.cache
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\obj\Debug\netcoreapp2.2\scribeAPI.AssemblyInfo.cs
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\obj\Debug\netcoreapp2.2\scribeAPI.RazorTargetAssemblyInfo.cache
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\obj\Debug\netcoreapp2.2\scribeAPI.dll
+C:\Users\ldj97\Desktop\my_app\scribeAPI\scribeAPI\obj\Debug\netcoreapp2.2\scribeAPI.pdb
