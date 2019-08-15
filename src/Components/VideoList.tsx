@@ -84,7 +84,7 @@ export default class VideoList extends React.Component<IProps,IState>{
         this.props.mount(this.updateList)
         this.updateList()
 
-        this.props.hubConnection.on("VideoDeleted", ()  => {
+        this.props.hubConnection.on("DeleteVideo", ()  => {
             this.updateList();
             console.log('A video has been deleted.');
         });
