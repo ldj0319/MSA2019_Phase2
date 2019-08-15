@@ -82,6 +82,10 @@ class App extends React.Component<{}, IState>{
       console.log('A video is deleted!');
     });
 
+    this.state.hubConnection.on("VideoAdded", ()  => {
+      console.log('A video is added!!!');
+    });
+
     this.state.hubConnection.start().then(() => this.state.hubConnection.invoke("BroadcastMessage"));
   }
   
