@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Webcam from "react-webcam";
 import ReactPlayer from 'react-player';
 import CaptionArea from 'src/Components/CaptionArea';
 import Header from 'src/Components/Header';
@@ -10,7 +11,10 @@ interface IState {
   updateVideoList: any,
   player: any,
   playingURL: string
-  videoList: object
+  videoList: object,
+  authenticated: boolean,
+  refCamera: any,
+  predictionResult: any
 }
 
 class App extends React.Component<{}, IState>{
@@ -23,7 +27,12 @@ class App extends React.Component<{}, IState>{
       playingURL: "",
       updateVideoList: null,
       videoList: [],
+      authenticated: false,
+      refCamera: React.createRef(),
+      predictionResult: null
     }
+
+    this.authenticate = this.authenticate.bind(this)
   }
 
   public setRef = (playerRef: any) => {
@@ -77,7 +86,28 @@ class App extends React.Component<{}, IState>{
   }
   
   public render() {
+
+    const { authenticated } = this.state
+
     return (<div>
+      <div>
+                {(!authenticated) ?
+                    <div>
+                        <Webcam
+                            audio={false}
+                            screenshotFormat="image/jpeg"
+                            ref={this.state.refCamera}
+                        />
+                        <div className="row nav-row">
+                            <div className="btn btn-primary bottom-button" onClick={this.authenticate}>Login</div>
+                        </div>
+                    </div>
+                    : ""}
+
+
+                {(authenticated) ?
+                    <div>
+
       <Header addVideo={this.addVideo} />
       <div className="container">
         <div className="row">
@@ -104,8 +134,54 @@ class App extends React.Component<{}, IState>{
           </div>
         </div>
         <CaptionArea currentVideo={this.state.playingURL} play={this.updateURL} />
-      </div>
-    </div>)
+        </div>
+                    </div>
+                    : ""}
+
+            </div>
+
+        </div>)
+  }
+  // Call custom vision model
+  private getFaceRecognitionResult(image: string) {
+    const url = "https://australiaeast.api.cognitive.microsoft.com/customvision/v3.0/Prediction/6c893c33-73f0-467f-865a-c28f8fa79f74/classify/iterations/Iteration1/image"
+    if (image === null) {
+        return;
+    }
+    const base64 = require('base64-js');
+    const base64content = image.split(";")[1].split(",")[1]
+    const byteArray = base64.toByteArray(base64content);
+    fetch(url, {
+        body: byteArray,
+        headers: {
+            'cache-control': 'no-cache', 'Prediction-Key': '63d4a7208d114a1da049e48b17e1e456', 'Content-Type': 'application/octet-stream'
+        },
+        method: 'POST'
+    })
+        .then((response: any) => {
+            if (!response.ok) {
+                // Error State
+                alert(response.statusText)
+            } else {
+                response.json().then((json: any) => {
+                    console.log(json.predictions[0])
+
+                    this.setState({ predictionResult: json.predictions[0] })
+                    if (this.state.predictionResult.probability > 0.7) {
+                        this.setState({ authenticated: true })
+                    } else {
+                        this.setState({ authenticated: false })
+                        console.log(json.predictions[0].tagName)
+                    }
+                })
+            }
+        })
+}
+
+
+  private authenticate() {
+    const screenshot = this.state.refCamera.current.getScreenshot();
+    this.getFaceRecognitionResult(screenshot);
   }
 }
 

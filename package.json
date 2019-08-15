@@ -6,10 +6,12 @@
     "@aspnet/signalr": "^1.1.4",
     "@material-ui/core": "^4.0.1",
     "@material-ui/icons": "^4.0.1",
+    "@types/react-webcam": "^1.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-player": "^1.11.1",
-    "react-scripts-ts": "^4.0.8"
+    "react-scripts-ts": "^4.0.8",
+    "react-webcam": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",
