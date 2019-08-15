@@ -6,6 +6,7 @@ import VideoList from 'src/Components/VideoList';
 import 'src/App.css'
 
 interface IState {
+  hubConnection: any,
   updateVideoList: any,
   player: any,
   playingURL: string
@@ -13,9 +14,11 @@ interface IState {
 }
 
 class App extends React.Component<{}, IState>{
+  public signalR = require("@aspnet/signalr");
   public constructor(props: any) {
     super(props);
     this.state = {
+      hubConnection: new this.signalR.HubConnectionBuilder().withUrl("https://jae2019msaphase2scribeapi.azurewebsites.net/hub").build(),
       player: null,
       playingURL: "",
       updateVideoList: null,
@@ -40,7 +43,7 @@ class App extends React.Component<{}, IState>{
       method: "POST"
     }).then(() => {
       this.state.updateVideoList();
-    })
+    }).then(() => {this.state.hubConnection.invoke("VideoAdded")});
   }
 
   public updateURL = (url: string) => {
@@ -55,6 +58,24 @@ class App extends React.Component<{}, IState>{
     this.setState({ updateVideoList: callbacks })
   }
 
+  public componentDidMount = () => {
+
+    this.state.hubConnection.on("Connect", ()  => {
+      console.log('A new user has connected to the hub.');
+    });
+
+    this.state.hubConnection.on("UpdateVideoList", ()  => {
+      this.state.updateVideoList();
+      console.log('A new video has been added!');
+    });
+
+    this.state.hubConnection.on("VideoDeleted", ()  => {
+      console.log('A video is deleted!');
+    });
+
+    this.state.hubConnection.start().then(() => this.state.hubConnection.invoke("BroadcastMessage"));
+  }
+  
   public render() {
     return (<div>
       <Header addVideo={this.addVideo} />
