@@ -234,7 +234,7 @@ class App extends React.Component<{}, IState>{
           response.json().then(data => {
               let happiness = (data[0] != null ? data[0].faceAttributes.emotion.happiness : 0);
               happiness = (Math.round(happiness * 100))
-              if (happiness >= 0) {
+              if (happiness >= 50) {
                   console.log(happiness);
                   const screenshot = this.state.refCamera.current.getScreenshot();
                   this.getFaceRecognitionResult(screenshot);
