@@ -137,7 +137,7 @@ export default class VideoList extends React.Component<IProps,IState>{
             });
         }
     }
-
+    
     public Dislike(video:any){
         if(this.state.dislikeList.includes(video.videoId)){
             console.log("You cannot dislike the same video")
@@ -150,8 +150,8 @@ export default class VideoList extends React.Component<IProps,IState>{
                 "webUrl": video.webUrl,
                 "thumbnailUrl": video.thumbnailUrl,
                 "isFavourite": video.isFavourite,
-                "like": video.like,
-                "dislike": video.dislike + 1,
+                "like": video.like - 1,
+                "dislike": video.dislike,
                 "transcription": video.transcription
             }
             
@@ -170,7 +170,7 @@ export default class VideoList extends React.Component<IProps,IState>{
             });
         }
     }
-
+    
 
     public render() {
         return (
