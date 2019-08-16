@@ -27,6 +27,16 @@ h1 {
   color: blue;
 }
 
+.thumbUp-heading {
+  color: blue;
+  font-size: 10px;
+}
+
+.thumbDown-heading {
+  color: red;
+  font-size: 10px;
+}
+
 .orange-heading {
   color: orange;
 }

@@ -20,6 +20,12 @@
     margin-left:auto;
     margin-right:auto;
 }
+
+.btn2{
+    text-align: center;
+    font-size: 10px;
+    align-content: center;
+}
 .profileImage {
     max-width: 250px;
     border-radius: 50%;

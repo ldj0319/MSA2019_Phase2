@@ -6,6 +6,7 @@ import Header from 'src/Components/Header';
 import VideoList from 'src/Components/VideoList';
 import 'src/App.css'
 
+
 interface IState {
   hubConnection: any,
   updateVideoList: any,
@@ -137,7 +138,7 @@ class App extends React.Component<{}, IState>{
             />
           </div>
           <div className="col-5">
-            <VideoList play={this.updateURL} mount={this.listMounted} hubConnection={this.state.hubConnection}/>
+            <VideoList play={this.updateURL} mount={this.listMounted} hubConnection={this.state.hubConnection} name={this.state.predictionResult.tagName}/>
           </div>
         </div>
         {/* <CaptionArea currentVideo={this.state.playingURL} play={this.updateURL} /> */}
