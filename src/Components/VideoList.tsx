@@ -1,7 +1,6 @@
 import Close from '@material-ui/icons/Close'
 import Star from '@material-ui/icons/Star'
 import StarBorder from '@material-ui/icons/StarBorder'
-import Icon from '@material-ui/core/Icon';
 import * as React from 'react'
 
 interface IState{
@@ -34,7 +33,6 @@ export default class VideoList extends React.Component<IProps,IState>{
     }
 
     public playVideo = (videoUrl:string) => {
-
         this.props.play(videoUrl)
     }
 
@@ -50,6 +48,7 @@ export default class VideoList extends React.Component<IProps,IState>{
                     <td className="align-middle" onClick={() => this.handleLike(video)}>{video.isFavourite === true?<Star/>:<StarBorder/>}</td>
                     <td className="align-middle" onClick={() => this.playVideo(video.webUrl)}><img src={video.thumbnailUrl} width="100px" alt="Thumbnail"/></td>
                     <td className="align-middle" onClick={() => this.playVideo(video.webUrl)}><b>{video.videoTitle}</b></td>
+                    <td className="align-middle" onClick={() => this.Like(video)}><div className="btn btn-primary bottom-button"><span className="blue-heading">Like: {video.like}</span></div></td>
                     <td className="align-middle video-list-close"><button onClick={() => this.deleteVideo(video.videoId)}><Close/></button></td>
                 </tr>)
                 if(video.isFavourite){
@@ -63,6 +62,7 @@ export default class VideoList extends React.Component<IProps,IState>{
     }
 
     public handleLike = (video:any) => {
+
         const toSend = [{
             "from":"",
             "op":"replace",
@@ -77,7 +77,6 @@ export default class VideoList extends React.Component<IProps,IState>{
             },
             method: "PATCH"
           }).then(() => {
-              this.Like();
               this.updateList();
           })
     }
@@ -98,20 +97,43 @@ export default class VideoList extends React.Component<IProps,IState>{
 
     }
 
-    public Like(){
-        console.log("test")
+    public Like(video:any){
+        console.log(video);
+        const toSend = [
+        {
+            "videoId": video.videoId,
+            "videoTitle": video.videoTitle,
+            "videoLength": video.videoLength,
+            "webUrl": video.webUrl,
+            "thumbnailUrl": video.thumbnailUrl,
+            "isFavourite": video.isFavourite,
+            "like": video.like++,
+            "transcription": [
+              {
+                "transcriptionId": 0,
+                "videoId": 0,
+                "startTime": 0,
+                "phrase": "string"
+              }
+            ]
+          }
+        ]
+        fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/Videos/"+video.videoId,{
+            body:JSON.stringify(toSend),
+            headers: {
+              Accept: "text/plain",
+              "Content-Type": "application/json-patch+json"
+            },
+            method:'PUT'
+        }).then(() => {
+            this.updateList()
+        });
     }
 
     public render() {
-        const style = { 
-            display: 'inline-flex',
-            fontSize: 25,
-            verticalAlign: 'middle',
-        }
         return (
             <div className="video-list">
                 <h1 className="play-heading"><span className="blue-heading">play</span>video</h1>
-                <div className="btn btn-primary bottom-button" onClick={this.Like}><span className="blue-heading">Like</span></div>
                 <table className="table">
                     {this.state.videoList}
                 </table>

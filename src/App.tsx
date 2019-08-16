@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Webcam from "react-webcam";
 import ReactPlayer from 'react-player';
-import CaptionArea from 'src/Components/CaptionArea';
+// import CaptionArea from 'src/Components/CaptionArea';
 import Header from 'src/Components/Header';
 import VideoList from 'src/Components/VideoList';
 import 'src/App.css'
@@ -140,7 +140,7 @@ class App extends React.Component<{}, IState>{
             <VideoList play={this.updateURL} mount={this.listMounted} hubConnection={this.state.hubConnection}/>
           </div>
         </div>
-        <CaptionArea currentVideo={this.state.playingURL} play={this.updateURL} />
+        {/* <CaptionArea currentVideo={this.state.playingURL} play={this.updateURL} /> */}
         </div>
                     </div>
                     : ""}
@@ -210,10 +210,9 @@ class App extends React.Component<{}, IState>{
         console.log(response.status);
         if (response.ok) {
           response.json().then(data => {
-              console.log(data[0].faceAttributes.emotion);
               let happiness = (data[0] != null ? data[0].faceAttributes.emotion.happiness : 0);
               happiness = (Math.round(happiness * 100))
-              if (happiness > 50) {
+              if (happiness >= 0) {
                   console.log(happiness);
                   const screenshot = this.state.refCamera.current.getScreenshot();
                   this.getFaceRecognitionResult(screenshot);
