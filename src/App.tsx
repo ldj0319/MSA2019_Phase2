@@ -15,7 +15,8 @@ interface IState {
   videoList: object,
   authenticated: boolean,
   refCamera: any,
-  predictionResult: any
+  predictionResult: any,
+  videoUrlList: any,
 }
 
 class App extends React.Component<{}, IState>{
@@ -30,7 +31,8 @@ class App extends React.Component<{}, IState>{
       videoList: [],
       authenticated: false,
       refCamera: React.createRef(),
-      predictionResult: null
+      predictionResult: null,
+      videoUrlList: []
     }
 
     this.authenticate = this.authenticate.bind(this)
@@ -43,17 +45,36 @@ class App extends React.Component<{}, IState>{
   }
 
   public addVideo = (url: string) => {
-    const body = {"url": url}
-    fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/Videos", {
-      body: JSON.stringify(body),
-      headers: {
-        Accept: "text/plain",
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    }).then(() => {
-      this.state.updateVideoList();
-    }).then(() => {this.state.hubConnection.invoke("VideoAdded")});
+    fetch('https://jae2019msaphase2scribeapi.azurewebsites.net/api/Videos',{
+            method:'GET'
+        }).then((ret:any) => {
+            return ret.json();
+        }).then((result:any) => {
+          console.log("here")
+            result.forEach((video:any) => {
+              console.log(video.webUrl)
+              if(!this.state.videoUrlList.includes(url)){
+                this.state.videoUrlList.push(video.webUrl)
+              }
+              
+            });
+        }).then(() => {console.log(this.state.videoUrlList)
+        if(this.state.videoUrlList.includes(url)){
+          console.log("You cannot add the same video")
+        }
+        else{
+          const body = {"url": url}
+          fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/Videos", {
+            body: JSON.stringify(body),
+            headers: {
+              Accept: "text/plain",
+              "Content-Type": "application/json"
+            },
+            method: "POST"
+          }).then(() => {
+            this.state.updateVideoList();
+          }).then(() => {this.state.hubConnection.invoke("VideoAdded")});
+        }})
   }
 
   public updateURL = (url: string) => {
