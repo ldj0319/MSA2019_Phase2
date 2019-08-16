@@ -34,6 +34,7 @@ export default class VideoList extends React.Component<IProps,IState>{
     }
 
     public playVideo = (videoUrl:string) => {
+
         this.props.play(videoUrl)
     }
 
@@ -76,6 +77,7 @@ export default class VideoList extends React.Component<IProps,IState>{
             },
             method: "PATCH"
           }).then(() => {
+              this.Like();
               this.updateList();
           })
     }
@@ -96,7 +98,9 @@ export default class VideoList extends React.Component<IProps,IState>{
 
     }
 
-
+    public Like(){
+        console.log("test")
+    }
 
     public render() {
         const style = { 
@@ -106,7 +110,8 @@ export default class VideoList extends React.Component<IProps,IState>{
         }
         return (
             <div className="video-list">
-                <h1 className="play-heading"><span className="red-heading">play</span>video <span style={style}><Icon color='primary' fontSize='large'>person</Icon><b>{this.state.usersCountCurrent}</b></span></h1>
+                <h1 className="play-heading"><span className="blue-heading">play</span>video</h1>
+                <div className="btn btn-primary bottom-button" onClick={this.Like}><span className="blue-heading">Like</span></div>
                 <table className="table">
                     {this.state.videoList}
                 </table>
