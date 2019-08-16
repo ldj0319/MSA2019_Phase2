@@ -96,8 +96,8 @@ class App extends React.Component<{}, IState>{
     return (<div>
       <div>
                 {(!authenticated) ?
-                    <div>
-                        <Webcam
+                    <div className="video"> 
+                        <Webcam 
                             audio={false}
                             screenshotFormat="image/jpeg"
                             ref={this.state.refCamera}
@@ -185,8 +185,46 @@ class App extends React.Component<{}, IState>{
 
   private authenticate() {
     const screenshot = this.state.refCamera.current.getScreenshot();
-    this.getFaceRecognitionResult(screenshot);
+    this.smile(screenshot);    
   }
+
+  private smile(image:string ){
+    const byteArrayImage = this.convertToByteArray(image);
+    // console.log(image);
+    this.fetchData(byteArrayImage);
+  }
+
+  private fetchData = (byteArray: any) => {
+    const apiKey = '3a0d525bd701431d83b41cc6fafd73af';
+    const apiEndpoint = 'https://australiaeast.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceAttributes=emotion'
+    fetch(apiEndpoint, {
+        body: byteArray,
+        headers: {
+            'cache-control': 'no-cache', 'Ocp-Apim-Subscription-Key': apiKey, 'Content-Type': 'application/octet-stream'
+        },
+        method: 'POST'
+    }).then(response => {
+        console.log(response.status);
+        if (response.ok) {
+          response.json().then(data => {
+              console.log(data[0].faceAttributes.emotion);
+              let happiness = (data[0] != null ? data[0].faceAttributes.emotion.happiness : 0);
+              happiness = (Math.round(happiness * 100))
+              if (happiness > 50) {
+                  console.log(happiness);
+                  const screenshot = this.state.refCamera.current.getScreenshot();
+                  this.getFaceRecognitionResult(screenshot);
+              }
+          });
+      }
+    });
+  }
+
+  private convertToByteArray = (image:string) => {
+    const base64 = require('base64-js');
+    const base64string = image.split(',')[1];
+    return base64.toByteArray(base64string)
+};
 }
 
 export default App;

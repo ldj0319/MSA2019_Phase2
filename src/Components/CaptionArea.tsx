@@ -93,6 +93,7 @@ export default class CaptionArea extends React.Component<IProps, IState>{
                     <div className="col-2 justify-content-center align-self-center">
                         <h1><span className="red-heading">search</span>caption</h1>
                     </div>
+                    {/* <div className="btn" onClick={this.searchTagByVoice}><i className="fa fa-microphone" /></div> */}
                     <div className="col-10">
                         
                         <TextField
