@@ -99,7 +99,7 @@ export default class VideoList extends React.Component<IProps,IState>{
 
     public Like(video:any){
         console.log(video);
-        const toSend = [
+        const toSend = 
         {
             "videoId": video.videoId,
             "videoTitle": video.videoTitle,
@@ -107,17 +107,11 @@ export default class VideoList extends React.Component<IProps,IState>{
             "webUrl": video.webUrl,
             "thumbnailUrl": video.thumbnailUrl,
             "isFavourite": video.isFavourite,
-            "like": video.like++,
-            "transcription": [
-              {
-                "transcriptionId": 0,
-                "videoId": 0,
-                "startTime": 0,
-                "phrase": "string"
-              }
-            ]
+            "like": video.like + 1,
+            "transcription": video.transcription
           }
-        ]
+        
+        console.log(toSend);
         fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/Videos/"+video.videoId,{
             body:JSON.stringify(toSend),
             headers: {
