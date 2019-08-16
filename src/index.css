@@ -23,6 +23,14 @@ h1 {
   color: #C1263A;
 }
 
+.blue-heading {
+  color: blue;
+}
+
+.orange-heading {
+  color: orange;
+}
+
 .play-heading {
   margin-left: 20px;
   margin-top: 10px;

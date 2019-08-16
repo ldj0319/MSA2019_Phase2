@@ -3,6 +3,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField'
 import AddCircle from '@material-ui/icons/AddCircle'
 import * as React from 'react';
+import logo from '../../src/Logo/logo.png'
 
 interface IProps{
     addVideo:any,
@@ -29,10 +30,11 @@ export default class Header extends React.Component<IProps,IState> {
             <div className="header">
                 <div className="container">
                     <div className="row">
-                        <div className="col-2 justify-content-center align-self-center">
-                            <h1><span className="red-heading">Like</span>&amp;Scribr</h1>
+                        <img src={logo} height='80'/>
+                        <div className="col-3 justify-content-center align-self-center">
+                            <h1><span className="blue-heading">Jae's</span> Book</h1>
                         </div>
-                        <div className="col-10">
+                        <div className="col-7">
                             <TextField
                             id= "Search-Bar"
                             className = "SearchBar"
