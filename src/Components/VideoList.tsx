@@ -26,7 +26,7 @@ export default class VideoList extends React.Component<IProps,IState>{
     }
 
     public deleteVideo = (id:any) => {
-        fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/Videos/"+id,{
+        fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/MyVideos/"+id,{
             method:'DELETE'
         }).then(() => {
             this.updateList()
@@ -38,7 +38,7 @@ export default class VideoList extends React.Component<IProps,IState>{
     }
 
     public updateList = () => {
-        fetch('https://jae2019msaphase2scribeapi.azurewebsites.net/api/Videos',{
+        fetch('https://jae2019msaphase2scribeapi.azurewebsites.net/api/MyVideos',{
             method:'GET'
         }).then((ret:any) => {
             return ret.json();
@@ -68,7 +68,7 @@ export default class VideoList extends React.Component<IProps,IState>{
             "path":"/isFavourite",
             "value":!video.isFavourite,
         }]
-        fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/Videos/update/"+video.videoId, {
+        fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/MyVideos/update/"+video.videoId, {
             body:JSON.stringify(toSend),
             headers: {
               Accept: "text/plain",

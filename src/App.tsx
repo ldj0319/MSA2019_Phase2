@@ -43,7 +43,7 @@ class App extends React.Component<{}, IState>{
 
   public addVideo = (url: string) => {
     const body = {"url": url}
-    fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/Videos", {
+    fetch("https://jae2019msaphase2scribeapi.azurewebsites.net/api/MyVideos", {
       body: JSON.stringify(body),
       headers: {
         Accept: "text/plain",
@@ -63,6 +63,9 @@ class App extends React.Component<{}, IState>{
     }
   }
 
+  public currentVideo(){
+    console.log(this.state.playingURL);
+  }
   public listMounted = (callbacks: any) => {
     this.setState({ updateVideoList: callbacks })
   }
