@@ -173,7 +173,7 @@ class App extends React.Component<{}, IState>{
   }
   // Call custom vision model
   private getFaceRecognitionResult(image: string) {
-    const url = "https://australiaeast.api.cognitive.microsoft.com/customvision/v3.0/Prediction/6c893c33-73f0-467f-865a-c28f8fa79f74/classify/iterations/Iteration1/image"
+    const url = "https://australiaeast.api.cognitive.microsoft.com/customvision/v3.0/Prediction/6c893c33-73f0-467f-865a-c28f8fa79f74/classify/iterations/Iteration2/image"
     if (image === null) {
         return;
     }
